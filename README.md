@@ -1,6 +1,8 @@
-# Diffusion-Augmented Diabetic Retinopathy Grading
+#  Medical Image Augmentation Comparative Study
 
-A deep learning framework for improving diabetic retinopathy grading through diffusion-based data augmentation techniques. This project investigates the use of diffusion models for generating synthetic retinal images to address class imbalance and limited medical data availability in diabetic retinopathy grading.
+We systematically evaluate and compare multiple augmentation strategies for medical image classification.
+
+This project investigates the use of diffusion models for generating synthetic retinal images to address class imbalance and limited medical data availability in diabetic retinopathy grading.
 Medical datasets are often small, imbalanced, and expensive to annotate. This project explores whether diffusion models can improve classification performance by generating realistic retinal images.
 
 Dataset: IDRiD (Indian Diabetic Retinopathy Image Dataset), you can download it through here *https://ieee-dataport.org/open-access/indian-diabetic-retinopathy-image-dataset-idrid*
