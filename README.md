@@ -2,6 +2,11 @@
 
 ### A Comparative Study of Traditional Augmentation, DCGAN, and Diffusion Models for Diabetic Retinopathy Classification
 
+[![Python](https://img.shields.io/badge/Python-3.10+-blue)](#)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.x-orange)](#)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
+🏥 Medical Imaging | 🧠 Deep Learning | 🎨 Diffusion Models
 ---
 
 ## Overview
@@ -10,7 +15,7 @@ Deep learning has transformed medical image analysis, enabling automated disease
 
 In medical imaging, this requirement is rarely satisfied. Clinical datasets are often limited in size, severely imbalanced across pathological classes, expensive to annotate, and constrained by privacy regulations. These limitations significantly reduce the generalization capability of deep neural networks and frequently lead to overfitting.
 
-This project investigates whether **generative artificial intelligence can improve medical image classification by synthesizing realistic training samples**.
+This project investigates whether **generative deep learning can improve medical image classification by synthesizing realistic training samples**.
 
 We perform a comparative study of three augmentation paradigms:
 
@@ -64,7 +69,7 @@ The central research question is:
 
 ## Dataset
 
-This study uses the **Indian Diabetic Retinopathy Image Dataset (IDRiD)**.
+This study uses the **Indian Diabetic Retinopathy Image Dataset (IDRiD)** [https://idrid.grand-challenge.org/].
 
 Dataset characteristics:
 
@@ -72,6 +77,10 @@ Dataset characteristics:
 * 413 training images
 * 103 testing images
 * 5 disease severity grades (0–4)
+
+<p align="center">
+  <img width="480" height="371" alt="image" src="https://github.com/user-attachments/assets/610367ae-e945-4f4d-a095-04f8ee9e380c" />
+</p>
 
 Challenges:
 
@@ -100,7 +109,7 @@ Traditional augmentation applies deterministic transformations such as:
 
 These methods increase dataset size but do not introduce novel semantic information.
 
----
+
 
 ### GAN-Based Augmentation
 
@@ -123,9 +132,7 @@ GAN-based augmentation has shown promising results in medical imaging, although 
 
 ### Diffusion-Based Augmentation
 
-Diffusion probabilistic models have recently emerged as state-of-the-art generative models for image synthesis.
-
-Unlike GANs, diffusion models learn image generation through iterative denoising.
+Diffusion probabilistic models have recently emerged as state-of-the-art generative models for image synthesis. Unlike GANs, diffusion models learn image generation through iterative denoising.
 
 Advantages:
 
@@ -146,7 +153,7 @@ We compare three augmentation strategies.
 
 Classical image transformations were applied to increase dataset diversity.
 
-Geometric transformations:
+* Geometric transformations:
 
 $$x' = rotate(x, θ)$$
 
@@ -154,11 +161,11 @@ $$x' = translate(x, Δx, Δy)$$
 
 $$x' = scale(x, s)$$
 
-Photometric transformations:
+* Photometric transformations:
 
 $$I' = αI + β$$
 
-Noise injection:
+* Noise injection:
 
 $$x' = x + ε$$
 
@@ -170,28 +177,24 @@ Although these transformations increase sample count, they do not generate novel
 
 ### 2. DCGAN-Based Augmentation
 
-DCGAN learns the data distribution through adversarial learning.
+DCGAN learns the data distribution through adversarial learning. The architecture contains:
 
-The architecture contains:
+* Generator: $G(z)$
 
-Generator: $G(z)$
+* Discriminator: $D(x)$
 
-Discriminator: $D(x)$
+* The generator maps random latent vectors into synthetic images. 
 
-The generator maps random latent vectors into synthetic images.
+* The discriminator learns to distinguish real images from generated images.
 
-The discriminator learns to distinguish real images from generated images.
+* Optimization follows an adversarial objective:
 
-Optimization follows an adversarial objective:
+* Generator → fool discriminator
 
-Generator → fool discriminator
+* Discriminator → detect synthetic images
 
-Discriminator → detect synthetic images
+* Training process: min Generator, max Discriminator
 
-Training process:
-
-min Generator
-max Discriminator
 
 Expected advantages:
 
@@ -202,8 +205,9 @@ Expected advantages:
 
 ### DCGAN Architecture
 
-(Insert architecture figure here)
-
+<p align="center">
+<img width="778" height="386" alt="image" src="https://github.com/user-attachments/assets/4c0cd03f-ca6f-4e26-91e2-a4b0a95cc4a4" />
+</p>
 ---
 
 ### 3. Diffusion-Based Augmentation
@@ -255,15 +259,15 @@ Tested models:
 * GLIDE
 * DALL·E 2
 
-Images were generated using clinically descriptive prompts corresponding to diabetic retinopathy grades.
+Images were generated using clinically descriptive prompts corresponding to diabetic retinopathy grades. The prompt specified photographs of the retina, which is the layer of tissue at the back of the eye that its Retinopathy grade = 1/4 and its Risk of macular edema = 0 for medical purpose.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/155b0a44-3bf6-4e01-8a31-06f7cc8344f8" width="280" hspace="10"/>
+  <img src="https://github.com/user-attachments/assets/541410e5-a271-42bb-96ae-846e6726a8a9" width="280" hspace="10"/>
+  <img src="https://github.com/user-attachments/assets/3a5f34a0-ddea-4f51-9761-789dda41ea2d" width="280" hspace="10"/>
+</p>
+Among all evaluated models, *DALL·E 2 produced the highest visual realism and strongest anatomical consistency*. Therefore DALL·E 2 was selected for augmentation experiments.
 
-Among all evaluated models, **DALL·E 2 produced the highest visual realism and strongest anatomical consistency**.
 
-Therefore DALL·E 2 was selected for augmentation experiments.
-
-(Insert generated image comparison)
-
----
 
 ## Classification Models
 
@@ -273,9 +277,9 @@ Two classifiers were evaluated.
 
 A lightweight convolutional neural network was designed specifically for this study.
 
-(Insert architecture figure)
-
----
+<p align="center">
+<img width="567" height="635" alt="image" src="https://github.com/user-attachments/assets/01396671-cef8-4b79-a416-628e327e2400" />
+</p>
 
 ### ResNet50 Transfer Learning
 
@@ -311,24 +315,44 @@ Each classifier was trained separately using:
 
 DCGAN-generated images were excluded after quality evaluation.
 
----
+
 
 ## Why DCGAN Was Excluded
 
-Although DCGAN successfully learned low-level retinal structures, generated samples lacked sufficient anatomical realism.
+DCGAN Experiments and Limitations
 
-Observed issues:
+We initially investigated DCGAN as a generative approach for synthetic retinal image augmentation.
+While the model successfully captured low-level retinal structures and global image distributions, the generated samples failed to achieve the anatomical fidelity required for downstream classification tasks.
 
-* unstable convergence
-* poor vessel representation
-* visual artifacts
-* low pathological diversity
+Qualitative Assessment
 
-The generated samples were judged unsuitable for classification experiments.
+Several limitations were consistently observed during training and sampling:
 
-Therefore DCGAN was excluded from final evaluation.
+Training instability leading to inconsistent convergence behavior
+Poor vascular structure representation, particularly in fine retinal vessels
+Presence of visual artifacts and texture distortions
+Limited ability to generate pathological diversity across disease categories
+Reduced preservation of clinically relevant retinal patterns
 
----
+These shortcomings significantly affected sample quality and limited the usefulness of the generated data for supervised learning experiments.
+
+Generated Samples Analysis
+<table align="center"> <tr> <th align="center">Training Phase Outputs</th> <th align="center">Sampling Phase Outputs</th> </tr> <tr> <td align="center"> <img src="https://github.com/user-attachments/assets/59055bc4-de21-4c16-a77c-786a5d807269" width="450"/> </td> <td align="center"> <img src="https://github.com/user-attachments/assets/0bec94ff-a3e5-4ad3-84b3-8ccdbe53cef3" width="450"/> </td> </tr> <tr> <td align="center"><em>(a) Images generated during adversarial training</em></td> <td align="center"><em>(b) Final synthetic samples produced after training</em></td> </tr> </table>
+Training Dynamics
+
+The adversarial training process exhibited significant instability, reflected by oscillatory generator–discriminator behavior and inconsistent convergence patterns.
+
+<p align="center"> <img width="700" src="https://github.com/user-attachments/assets/4a8dfb01-57b0-418c-9fe6-561244ec9888" /> <br> <em>Figure 3: DCGAN training progression illustrating unstable convergence behavior.</em> </p>
+Experimental Decision
+
+Based on qualitative inspection and training behavior analysis, generated samples from DCGAN were considered insufficiently realistic for medical classification tasks.
+
+As a result:
+
+DCGAN-generated samples were excluded from the final comparative evaluation pipeline.
+
+Subsequent experiments focused on more advanced generative approaches, particularly diffusion-based models, due to their superior structural fidelity and improved anatomical consistency.
+
 
 ## Experimental Results
 
