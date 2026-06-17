@@ -1,0 +1,14 @@
+dataset:
+  train_images: data/raw/train
+  test_images: data/raw/test
+  train_labels: data/raw/train_labels.csv
+  test_labels: data/raw/test_labels.csv
+
+augmentation:
+  traditional: data/augmented/traditional
+  dalle: data/augmented/dalle
+
+outputs:
+  models: outputs/models
+  figures: outputs/figures
+  logs: outputs/logs
